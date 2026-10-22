@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CycleCal — Agenda, Escalas e Folgas</title>
+<meta name="description" content="CycleCal: o calendário de escalas de trabalho. Saiba se é plantão ou folga em qualquer dia do ano. 12x36, 24x72, 6x1 e muito mais. Grátis, sem cadastro.">
+<meta property="og:title" content="CycleCal — Agenda, Escalas e Folgas">
+<meta property="og:description" content="Plantão ou folga daqui a 3 meses? Sem contar no dedo. Grátis na Play Store.">
+<meta property="og:image" content="tela_enfermagem.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2a44;
+    --navy-2: #163657;
+    --green: #2faf8a;
+    --green-dark: #23896b;
+    --mint: #8fe3c6;
+    --mint-bg: #eaf8f2;
+    --text: #1d2b3a;
+    --muted: #5b6b7b;
+    --white: #ffffff;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "DM Sans", system-ui, sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { width: min(1100px, 100% - 32px); margin-inline: auto; }
+
+  /* Topo */
+  header { background: var(--navy); color: var(--white); position: sticky; top: 0; z-index: 10; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; text-decoration: none; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  nav { display: flex; gap: 22px; font-size: .95rem; }
+  nav a { text-decoration: none; opacity: .85; }
+  nav a:hover { opacity: 1; color: var(--mint); }
+
+  /* Botão da Play Store */
+  .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--green); color: var(--white); font-weight: 700; text-decoration: none; padding: 14px 26px; border-radius: 999px; transition: background .2s, transform .2s; }
+  .btn:hover { background: var(--green-dark); transform: translateY(-2px); }
+  .btn svg { width: 22px; height: 22px; fill: currentColor; }
+
+  /* Hero */
+  .hero { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%); color: var(--white); padding: 72px 0 88px; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.12; font-weight: 800; }
+  .hero h1 span { color: var(--mint); display: block; }
+  .hero p { font-size: 1.15rem; opacity: .9; margin: 20px 0 32px; max-width: 520px; }
+  .hero .tags { margin-top: 26px; font-size: .9rem; color: var(--mint); letter-spacing: .02em; }
+  .phone { background: var(--white); border-radius: 28px; padding: 10px; box-shadow: 0 30px 60px rgba(0,0,0,.35); max-width: 340px; margin-inline: auto; transform: rotate(2deg); }
+  .phone img { border-radius: 20px; }
+
+  /* Seções */
+  section { padding: 80px 0; }
+  .eyebrow { color: var(--green); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); line-height: 1.2; margin: 6px 0 14px; }
+  .lead { color: var(--muted); font-size: 1.08rem; max-width: 640px; }
+
+  /* Áreas */
+  .areas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 40px; }
+  .area { background: var(--mint-bg); border-radius: var(--radius); padding: 24px 18px; text-align: center; }
+  .area .ico { font-size: 2rem; }
+  .area h3 { font-size: 1.02rem; margin: 8px 0 4px; }
+  .area p { font-size: .88rem; color: var(--muted); }
+
+  /* Escalas */
+  .escalas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .escalas span { border: 2px solid var(--green); color: var(--green-dark); font-weight: 700; padding: 6px 16px; border-radius: 999px; }
+
+  /* Recursos */
+  .bg-soft { background: #f5f9fb; }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  .feature { background: var(--white); border-radius: var(--radius); padding: 26px; box-shadow: 0 4px 18px rgba(15,42,68,.07); }
+  .feature .ico { width: 46px; height: 46px; border-radius: 12px; background: var(--mint-bg); display: grid; place-items: center; font-size: 1.4rem; }
+  .feature h3 { font-size: 1.08rem; margin: 14px 0 6px; }
+  .feature p { color: var(--muted); font-size: .95rem; }
+
+  /* Telas */
+  .telas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
+  .tela figure { background: var(--navy); border-radius: 26px; padding: 10px; }
+  .tela img { border-radius: 18px; }
+  .tela figcaption { text-align: center; margin-top: 14px; }
+  .tela strong { display: block; font-size: 1.05rem; }
+  .tela small { color: var(--muted); }
+
+  /* Chamada final */
+  .cta { background: var(--navy); color: var(--white); text-align: center; }
+  .cta h2 { color: var(--white); }
+  .cta .lead { color: rgba(255,255,255,.8); margin: 0 auto 30px; }
+  .cta .pedido { margin-top: 40px; color: var(--mint); }
+  .cta .pedido a { color: var(--white); font-weight: 700; }
+
+  footer { background: #0a1e31; color: rgba(255,255,255,.7); font-size: .9rem; padding: 28px 0; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer a { color: var(--mint); text-decoration: none; }
+
+  /* Animação de entrada */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+  .reveal.show { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+    .hero p { margin-inline: auto; }
+    .areas { grid-template-columns: repeat(2, 1fr); }
+    .features { grid-template-columns: 1fr 1fr; }
+    .telas { grid-template-columns: 1fr; max-width: 360px; margin-inline: auto; }
+  }
+  @media (max-width: 600px) {
+    nav { display: none; }
+    .features { grid-template-columns: 1fr; }
+    section { padding: 60px 0; }
+    .hero { padding: 48px 0 64px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .btn:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="icon.png" alt="">CycleCal</a>
+    <nav>
+      <a href="#areas">Para quem</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#telas">Telas</a>
+      <a href="#baixar">Baixar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Plantão ou folga daqui a 3 meses?<span>Sem contar no dedo.</span></h1>
+        <p>O CycleCal monta o calendário da sua escala de trabalho e mostra, em qualquer dia do ano, se você trabalha ou folga, com feriados, férias e trocas de plantão.</p>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.cyclecal.cyclecal_flutter" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2Zm11.6 11.6 2.6 2.6-11.3 6.4 8.7-9Zm3.9-3.9 3 1.7c.8.5.8 1.6 0 2.1l-3 1.7-2.9-2.9 2.9-2.6ZM6.5 1.6l11.3 6.4-2.6 2.6-8.7-9Z"/></svg>
+          Baixar grátis na Play Store
+        </a>
+        <div class="tags">Grátis · Sem cadastro · Sem login · Android</div>
+      </div>
+      <div class="phone"><img src="tela_enfermagem.jpg" alt="Tela do CycleCal mostrando o calendário de outubro com uma escala 12x36"></div>
+    </div>
+  </div>
+
+  <section id="areas">
+    <div class="wrap">
+      <div class="eyebrow">Para quem</div>
+      <h2>Feito para quem trabalha em escala</h2>
+      <p class="lead">Escolha a sua área e o CycleCal já sugere as escalas mais comuns dela. Se a sua for diferente, é só ajustar.</p>
+      <div class="areas">
+        <div class="area reveal"><div class="ico">🛒</div><h3>Supermercado e Varejo</h3><p>6x1 de loja e 5x2 de escritório</p></div>
+        <div class="area reveal"><div class="ico">🚓</div><h3>Segurança Pública</h3><p>Polícia, bombeiros e vigilância</p></div>
+        <div class="area reveal"><div class="ico">🏥</div><h3>Hospital e Saúde</h3><p>Plantões, folgas extras e mais de um vínculo</p></div>
+        <div class="area reveal"><div class="ico">🍎</div><h3>Professores e Educação</h3><p>Aulas por escola e turno</p></div>
+        <div class="area reveal"><div class="ico">⚙️</div><h3>Outros</h3><p>Qualquer escala de trabalho</p></div>
+      </div>
+      <div class="escalas reveal">
+        <span>6x1</span><span>5x2</span><span>12x36</span><span>24x48</span><span>24x72</span><span>24x96</span><span>12x24x12x72</span><span>2x2</span><span>3x1</span><span>4x2</span><span>14x21</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="recursos" class="bg-soft">
+    <div class="wrap">
+      <div class="eyebrow">Recursos</div>
+      <h2>Tudo o que a sua escala precisa</h2>
+      <div class="features">
+        <div class="feature reveal"><div class="ico">📅</div><h3>Calendário automático</h3><p>Informe a escala e um dia de referência. O app calcula todos os dias de trabalho e folga do ano.</p></div>
+        <div class="feature reveal"><div class="ico">🎉</div><h3>Feriados</h3><p>Feriados nacionais e facultativos marcados no calendário, inclusive quando caem na sua folga.</p></div>
+        <div class="feature reveal"><div class="ico">🏖️</div><h3>Férias e folgas extras</h3><p>Marque férias, folgas avulsas e trocas de plantão sem bagunçar a sua escala.</p></div>
+        <div class="feature reveal"><div class="ico">📝</div><h3>Agenda pessoal</h3><p>Anote compromissos em cada dia, com horário e local, e receba um lembrete no celular.</p></div>
+        <div class="feature reveal"><div class="ico">🎂</div><h3>Aniversários</h3><p>Datas importantes aparecem no calendário, junto com a sua escala.</p></div>
+        <div class="feature reveal"><div class="ico">🔒</div><h3>Sem cadastro</h3><p>Não pede conta, e-mail nem senha. Os seus dados de escala ficam no seu celular.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="telas">
+    <div class="wrap">
+      <div class="eyebrow">Telas</div>
+      <h2>Veja o CycleCal em ação</h2>
+      <div class="telas">
+        <div class="tela reveal"><figure><img src="tela_policia.jpg" alt="Escala 12x24x12x72 de policial no CycleCal" loading="lazy"></figure><figcaption><strong>Polícia: 12x24x12x72</strong><small>diurno, noturno e saída do noturno</small></figcaption></div>
+        <div class="tela reveal"><figure><img src="tela_enfermagem.jpg" alt="Escala 12x36 de enfermagem no CycleCal" loading="lazy"></figure><figcaption><strong>Enfermagem: 12x36</strong><small>folga extra e compromissos</small></figcaption></div>
+        <div class="tela reveal"><figure><img src="tela_professores.jpg" alt="Grade de aulas de professor no CycleCal" loading="lazy"></figure><figcaption><strong>Professores</strong><small>aulas por escola e turno</small></figcaption></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="baixar" class="cta">
+    <div class="wrap">
+      <h2>Organize a sua escala hoje</h2>
+      <p class="lead">Grátis, leve e sem cadastro. Instale e veja o seu ano inteiro em menos de um minuto.</p>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.cyclecal.cyclecal_flutter" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2Zm11.6 11.6 2.6 2.6-11.3 6.4 8.7-9Zm3.9-3.9 3 1.7c.8.5.8 1.6 0 2.1l-3 1.7-2.9-2.9 2.9-2.6ZM6.5 1.6l11.3 6.4-2.6 2.6-8.7-9Z"/></svg>
+        Baixar grátis na Play Store
+      </a>
+      <p class="pedido">A sua escala não está no app? <a href="mailto:cycledev26@gmail.com?subject=Minha%20escala%20no%20CycleCal">Me conta que eu coloco.</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="ano">2026</span> CycleCal · Desenvolvido por Gilmar Alberto de Abreu Pinto (CycleDev)</span>
+    <span><a href="https://claude.ai/code/artifact/ed97d8e7-91bb-4343-b81e-d6103f88d0d8" target="_blank" rel="noopener">Política de privacidade</a> · <a href="mailto:cycledev26@gmail.com">Contato</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('ano').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
